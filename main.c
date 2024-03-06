@@ -2,7 +2,7 @@
 
 // List of to-do
 // 		- fix number of dashes in printBoard so that it can accomodate different sized boards
-
+// 		- possibly fix issues with different sized game boards in printBoard();
 int box_height = 3;
 int game_dimensions = 3;
 
@@ -19,7 +19,7 @@ void initialize_board(struct Board *b){
 	// sets all values to null
 	for(int i = 0; i < rows; i++){
 		for(int j = 0; j < columns; j++){
-			b->board_values[i][j] = '\0';
+			b->board_values[i][j] = 'x';
 		}
 	}
 }
@@ -31,13 +31,14 @@ void printBoard(struct Board *b){
 	int columns = sizeof(b->board_values)/rows;
 	
 	// note 9 characters long
-	char *line = "---------";
-	
+	char *line = "--------";
+
 	// prints header
+	printf("   ");
 	for(int i = 0; i < columns; i++){
 		printf("|   %d   ",i);
 	}
-	printf("|\n");
+	printf("|\n--- ");
 	
 	for(int i = 0; i < columns; i++){
 		printf("%s", line);
@@ -54,21 +55,21 @@ void printBoard(struct Board *b){
 			for(int k = 0; k < columns; k++){
 				if(k == 0){
 					if(j == box_height%2){
-						printf("|    %c    |",b->board_values[i][k]);
+						printf(" %d |   %c   |",i,b->board_values[i][k]);
 					}else{
-							printf("|       |");
+							printf("   |       |");
 					}
 				}else{
 					if(j == box_height%2){
-						printf("    %c    |",b->board_values[i][k]);
+						printf("   %c   |",b->board_values[i][k]);
 					}else{
 							printf("       |");
 					}
 				}
 			}
-			//printf("\n");
+			printf("\n");
 		}
-		printf("\n");
+		printf("--- ");
 		for(int k = 0; k < columns; k++){
 			printf("%s", line);
 		}
