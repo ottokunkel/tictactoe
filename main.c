@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 // List of to-do
 // 		- fix number of dashes in printBoard so that it can accomodate different sized boards
@@ -79,14 +80,43 @@ void printBoard(struct Board *b){
 	
 }
 
+int* promptUser(){
+	int *a = malloc(sizeof(int) * 2);
+	int x;
+	int y;
+
+	printf("What column  would you like to choose? ");
+	scanf("%d",&x);
+	printf("\n");
+	
+	printf("What row would you like to choose? ");
+	scanf("%d", &y);
+	printf("\n");
+	
+	a[0] = x;
+	a[1] = y;
+	printf("address of malloc: %lu\n", a);
+	return a;
+}
 
 int main(){
 	
 
 	//initialize character array
+	char win = 0;
 
 	struct Board mainBoard;
 	initialize_board(&mainBoard);
-	printBoard(&mainBoard);
-
+	//printBoard(&mainBoard);
+	while(!win){
+		printBoard(&mainBoard);
+		int *input = promptUser();
+		
+		printf("address of input: %lu\n", input+1);
+		free(input);
+		win = 1;
+	}
+	
+	
+	
 }
